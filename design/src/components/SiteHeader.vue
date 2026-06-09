@@ -23,7 +23,7 @@
         </li>
         <li><a class="hover-underline" href="/#team">Team</a></li>
         <li>
-          <a class="hover-underline external" href="#" target="_blank"
+          <a class="hover-underline external" href="https://magao-x.org/docs/handbook/" target="_blank"
             >Handbook</a
           >
         </li>
