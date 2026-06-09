@@ -578,21 +578,7 @@ import VideoWrapper from "./components/VideoWrapper.vue";
 
 .clouds {
   color: #00b7ff;
-  aspect-ratio: 8 / 3;
-  min-height: 500px;
-  // .clouds-still scales 1.2× and translates vertically ±10% for parallax;
-  // this clips the overflow at the section's edges so the scaled image
-  // doesn't leak into the adjacent stripes. `overflow: hidden` on
-  // .clouds-still itself doesn't catch its own transform overflow — only
-  // the parent does.
   overflow: hidden;
-  // Named view-progress timeline tracked through the vertical (block) axis.
-  // .clouds-still references it via `animation-timeline: --clouds-view`. We
-  // declare it here rather than relying on the anonymous `view()` function on
-  // the subject so the timeline tracks this visible container element (which
-  // is in normal flow) rather than the absolutely-positioned .clouds-still.
-  view-timeline-name: --clouds-view;
-  view-timeline-axis: block;
   --clouds-image: url(/earth.png);
   --clouds-bg-size: cover;
   --clouds-bg-position: 50% 50%;
@@ -652,23 +638,11 @@ import VideoWrapper from "./components/VideoWrapper.vue";
   .bigfacts {
     font-weight: bold;
     font-size: clamp(2.2rem, 4cqi, 4rem);
+    margin-top: 2em;
+    margin-bottom: 2em;
   }
 }
 
-// Parallax keyframes for the Safari .clouds-still. Linear timing + a named
-// view-timeline on .clouds means the animation's progress is tied directly
-// to the section's progress through the viewport: -10% translateY at entry
-// (top edge just appearing at the viewport bottom), 0 when centred, +10%
-// at exit (bottom edge just leaving the viewport top). Baseline scale(1.2)
-// on .clouds-still keeps the image fully covering the container at both ends.
-@keyframes clouds-parallax {
-  from {
-    transform: translateY(-10%) scale(1.2);
-  }
-  to {
-    transform: translateY(10%) scale(1.2);
-  }
-}
 
 .wavefront-control {
   .bigfacts {
