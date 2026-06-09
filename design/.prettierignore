@@ -1,0 +1,4 @@
+# Ignore artifacts:
+dist/assets
+node_modules
+public

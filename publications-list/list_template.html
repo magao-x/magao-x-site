@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="width-limiter content publications-list">
+  <div class="description">
+     <p>
+         The collected publications, posters, and presentations of the MagAO-X collaboration.
+     </p>
+     <p>
+         <button id="toggle-abstracts" data-expanded="false">Expand all abstracts</button>
+         <a class="ads-library-link" href="https://ui.adsabs.harvard.edu/public-libraries/{{ library_id }}" target="_blank">ADS Library</a>
+     </p>
+  </div>
+  {% for pub in publications|sort(attribute='publication_date', reverse=True) %}
+  <article class="publication">
+    <h2 class="fancy-border only-top {{ loop.cycle('', 'rot90', 'rot270', 'rot180', 'rot90', 'rot270') }}">{{ pub.title }}</h2>
+    <div class="publication-details fancy-border only-top-bottom {{ loop.cycle('rot270', 'rot90', '', 'rot90', 'rot270', 'rot180', 'rot90', 'rot270')}}">
+      <p class="authors">{{ pub.authors|join(', ') }}</p>
+      <p class="links">
+        {% for att in pub.attachments %}
+        <a href="{{ att.filename }}" target="_blank">{{ att.name|lower }}</a>
+        {% endfor %}
+        {% for link in pub.links %}
+        <a href="{{ link.url }}" target="_blank">{{ link.label }}</a>
+        {% endfor %}
+      </p>
+      <details>
+        <summary>Abstract</summary>
+        <p>{{ pub.abstract }}</p>
+      </details>
+      <p class="bibcode"><a href="https://ui.adsabs.harvard.edu/#abs/{{ pub.bibcode }}/abstract">{{ pub.bibcode }}</a></p>
+      <p class="journal">{{ pub.journal }}</p>
+    </div>
+  </article>
+  {% endfor %}
+  <p class="generated-at">Last generated <time>{{ today }}</time></p>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.getElementById("toggle-abstracts");
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.dataset.expanded !== "true";
+    toggle.dataset.expanded = expanded;
+    toggle.innerText = expanded ? "Collapse all abstracts" : "Expand all abstracts";
+    document.querySelectorAll('.publication details').forEach(el => {
+      if (expanded) {
+        el.setAttribute("open", "open");
+      } else {
+        el.removeAttribute("open");
+      }
+    });
+  });
+});
+</script>
+<style>
+.publications-list {
+  padding: 2rem 0;
+}
+.publications-list .description {
+    margin: 1rem;
+}
+.publications-list .publication {
+  margin-bottom: 2rem;
+}
+.publications-list .publication-details {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+}
+
+.publications-list .publication h2 {
+  margin: 0 0 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1.25rem;
+}
+.publications-list .authors {
+  font-style: italic;
+  font-size: 0.8rem;
+  margin: 0 0 0.5rem;
+  color: #b8b8b8;
+}
+.publications-list .links a {
+  display: inline-block;
+  margin-right: 0.5rem;
+  text-decoration: underline;
+}
+.publications-list .ads-library-link {
+  margin-left: 1rem;
+}
+.publications-list .bibcode,
+.publications-list .journal {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #999;
+  margin: 0.25rem 0 0;
+}
+.publications-list .generated-at {
+  font-style: italic;
+  color: #777;
+  text-align: right;
+  padding-top: 2rem;
+}
+.publications-list #toggle-abstracts {
+  cursor: pointer;
+  padding: 0.35rem 0.75rem;
+}
+</style>
+<img src="https://stats.xwcl.science/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="" />
+{% endblock %}

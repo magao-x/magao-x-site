@@ -1,0 +1,49 @@
+{
+  "name": "magaox-sizzle",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "build:client": "vite build --ssrManifest .vite/ssr-manifest.json --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.js --outDir dist/server",
+    "type-check": "vue-tsc --build",
+    "lint": "eslint . --fix",
+    "generate": "vite build --ssrManifest .vite/ssr-manifest.json --outDir dist/static && npm run build:server && node prerender"
+  },
+  "dependencies": {
+    "luxon": "^3.7.1",
+    "solar-calculator": "^0.3.0",
+    "three": "^0.179.1",
+    "three-globe": "^2.44.0",
+    "three.meshline": "^1.4.0",
+    "vue": "^3.5.18"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "@types/luxon": "^3.7.1",
+    "@types/node": "^22.16.5",
+    "@types/three": "^0.179.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/eslint-config-typescript": "^14.6.0",
+    "@vue/tsconfig": "^0.7.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-vue": "~10.3.0",
+    "jiti": "^2.4.2",
+    "js-beautify": "^1.15.4",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "3.8.1",
+    "sass": "^1.90.0",
+    "typescript": "~5.8.0",
+    "vite": "^7.3.1",
+    "vite-plugin-static-copy": "^3.1.6",
+    "vite-plugin-vue-devtools": "^8.0.0",
+    "vue-tsc": "^3.0.4"
+  }
+}

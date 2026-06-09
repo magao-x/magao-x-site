@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+export ADS_API_TOKEN=
+export ADS_LIBRARY_ID=
+export PUBLICATIONS_OUTPUT_DIR=/srv/www/main/publications/
+if ! pyenv/bin/python -c 'print("ok")'; then
+    rm -rf pyenv
+    make pyenv
+fi
+source pyenv/bin/activate
+make
